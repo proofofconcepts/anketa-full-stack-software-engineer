@@ -34,6 +34,20 @@ This repo should showcase interview-ready engineering practices taken from the j
 - Collaboration habits: clear PR scope, code review readiness, and technical documentation.
 - Strong software principles: DRY, SOLID, and pragmatic clean architecture.
 
+## Job Description Reference (Summary)
+Reference role: Full Stack Software Engineer (social media voting platform).
+
+Primary expectations captured for this repo:
+- Build scalable web applications using Node.js + React and cross-platform mobile using Flutter.
+- Maintain high code quality and testing discipline (unit/integration with Jest).
+- Demonstrate strong backend architecture with NestJS + Prisma + Swagger.
+- Show frontend proficiency with modern React patterns and performance awareness.
+- Show mobile-awareness for Flutter, Bloc, API integration, and platform constraints.
+- Work with strict development standards, clean architecture principles, and collaborative code reviews.
+- Adapt across backend, frontend, and mobile while preserving maintainability.
+
+This repository uses those expectations as interview study criteria for implementation and documentation quality.
+
 ## Backend-First Delivery Plan
 Current focus is backend first. Follow this order:
 1. Stabilize backend API contract and domain rules.
