@@ -1,4 +1,4 @@
-import type { CreateVotePayload, Poll } from '../types/poll';
+import type { CreatePollPayload, CreateVotePayload, Poll } from '../types/poll';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/v1';
 
@@ -26,6 +26,16 @@ export function getPolls() {
 
 export function submitVote(payload: CreateVotePayload, accessToken: string) {
   return request('/votes', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify(payload),
+  });
+}
+
+export function createPoll(payload: CreatePollPayload, accessToken: string) {
+  return request<Poll>('/polls', {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${accessToken}`,

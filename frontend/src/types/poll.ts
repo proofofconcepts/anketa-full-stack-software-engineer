@@ -16,3 +16,8 @@ export interface CreateVotePayload {
   pollId: string;
   optionId: string;
 }
+
+export interface CreatePollPayload {
+  question: string;
+  options: string[];
+}
