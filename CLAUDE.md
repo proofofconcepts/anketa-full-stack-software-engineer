@@ -42,6 +42,10 @@ Current focus is backend first. Follow this order:
 4. Integrate web and mobile clients against stable API contracts.
 
 ## Working Rules
+- Mandatory requirements for every feature/change:
+1. Always use spec-driven development.
+2. Always use ADRs for architecture-impacting decisions.
+
 - Update OpenAPI spec before backend behavior changes.
 - Keep module boundaries explicit (auth, polls, votes, shared infra).
 - Enforce one vote per user per poll at database level.
