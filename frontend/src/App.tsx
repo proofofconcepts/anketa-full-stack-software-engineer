@@ -1,54 +1,23 @@
-import { useEffect, useMemo, useState } from 'react';
-import { getPolls, submitVote } from './api/client';
+import { useEffect } from 'react';
 import { PollCard } from './components/PollCard';
-import type { Poll } from './types/poll';
+import { useAuthStore } from './store/auth.store';
+import { usePollsStore } from './store/polls.store';
 
 export function App() {
-  const [polls, setPolls] = useState<Poll[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isVoting, setIsVoting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [notice, setNotice] = useState<string | null>(null);
-  const [token, setToken] = useState('');
-
-  const sortedPolls = useMemo(() => polls, [polls]);
-
-  async function loadPolls() {
-    try {
-      setIsLoading(true);
-      setError(null);
-      const data = await getPolls();
-      setPolls(data);
-    } catch (loadError) {
-      setError(loadError instanceof Error ? loadError.message : 'Failed to load polls');
-    } finally {
-      setIsLoading(false);
-    }
-  }
+  const { token, setToken } = useAuthStore();
+  const { polls, isLoading, isVoting, error, notice, loadPolls, castVote } = usePollsStore();
 
   async function onVote(pollId: string, optionId: string) {
     if (!token.trim()) {
-      setNotice('Add an access token before voting.');
+      usePollsStore.setState({ notice: 'Add an access token before voting.' });
       return;
     }
-
-    try {
-      setIsVoting(true);
-      setError(null);
-      setNotice(null);
-      await submitVote({ pollId, optionId }, token.trim());
-      setNotice('Vote submitted successfully. Refreshing polls...');
-      await loadPolls();
-    } catch (voteError) {
-      setError(voteError instanceof Error ? voteError.message : 'Failed to submit vote');
-    } finally {
-      setIsVoting(false);
-    }
+    await castVote(pollId, optionId, token.trim());
   }
 
   useEffect(() => {
     void loadPolls();
-  }, []);
+  }, [loadPolls]);
 
   return (
     <main className="mx-auto max-w-4xl px-4 pt-8 pb-16">
@@ -95,11 +64,11 @@ export function App() {
       </section>
 
       <section className="grid gap-4">
-        {sortedPolls.map((poll) => (
+        {polls.map((poll) => (
           <PollCard key={poll.id} poll={poll} isVoting={isVoting} onVote={onVote} />
         ))}
 
-        {!isLoading && sortedPolls.length === 0 ? (
+        {!isLoading && polls.length === 0 ? (
           <p className="text-slate-600 text-center">No polls available yet.</p>
         ) : null}
       </section>
