@@ -8,6 +8,11 @@ build/
 coverage/
 backend/dist/
 backend/coverage/
+frontend/dist/
+frontend/coverage/
+*.tsbuildinfo
+frontend/vite.config.js
+frontend/vite.config.d.ts
 
 # Logs
 *.log

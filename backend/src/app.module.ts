@@ -20,6 +20,7 @@ import { PrismaModule } from './prisma/prisma.module';
         JWT_REFRESH_SECRET: Joi.string().min(16).required(),
         JWT_ACCESS_TTL: Joi.string().required(),
         JWT_REFRESH_TTL: Joi.string().required(),
+        CORS_ORIGINS: Joi.string().required(),
       }),
     }),
     PrismaModule,

@@ -48,21 +48,7 @@ Primary expectations captured for this repo:
 
 This repository uses those expectations as interview study criteria for implementation and documentation quality.
 
-## Backend-First Delivery Plan
-Current focus is backend first. Follow this order:
-1. Stabilize backend API contract and domain rules.
-2. Harden auth, vote constraints, and observability.
-3. Expand automated tests.
-4. Integrate web and mobile clients against stable API contracts.
-
 ## Working Rules
 - Mandatory requirements for every feature/change:
 1. Always use spec-driven development.
 2. Always use ADRs for architecture-impacting decisions.
-
-- Update OpenAPI spec before backend behavior changes.
-- Keep module boundaries explicit (auth, polls, votes, shared infra).
-- Enforce one vote per user per poll at database level.
-- Keep logs structured and useful for troubleshooting.
-- Record architecture-impacting decisions in ADRs.
-- Keep this file updated as project scope evolves.
