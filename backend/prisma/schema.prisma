@@ -1,0 +1,68 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String         @id @default(cuid())
+  email         String         @unique
+  displayName   String
+  passwordHash  String
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  polls         Poll[]
+  votes         Vote[]
+  refreshTokens RefreshToken[]
+}
+
+model Poll {
+  id          String       @id @default(cuid())
+  question    String
+  createdById String
+  createdBy   User         @relation(fields: [createdById], references: [id], onDelete: Cascade)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  options     PollOption[]
+  votes       Vote[]
+
+  @@index([createdAt])
+}
+
+model PollOption {
+  id        String   @id @default(cuid())
+  pollId    String
+  poll      Poll     @relation(fields: [pollId], references: [id], onDelete: Cascade)
+  label     String
+  createdAt DateTime @default(now())
+  votes     Vote[]
+}
+
+model Vote {
+  id        String   @id @default(cuid())
+  userId    String
+  pollId    String
+  optionId  String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  poll      Poll     @relation(fields: [pollId], references: [id], onDelete: Cascade)
+  option    PollOption @relation(fields: [optionId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, pollId])
+  @@index([pollId])
+}
+
+model RefreshToken {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash String   @unique
+  expiresAt DateTime
+  revokedAt DateTime?
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
