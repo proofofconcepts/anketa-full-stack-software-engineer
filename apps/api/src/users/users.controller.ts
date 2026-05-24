@@ -50,7 +50,7 @@ export class UsersController {
     @Param('username') username: string,
     @CurrentUser() user: User | null,
   ) {
-    return this.usersService.findByUsername(username, user?.id ?? null);
+    return this.usersService.findByUsername(username, user?.id);
   }
 
   @Post(':id/follow')
@@ -84,7 +84,7 @@ export class UsersController {
       username,
       parseInt(page),
       Math.min(parseInt(limit), 50),
-      user?.id ?? null,
+      user?.id ?? '',
     );
   }
 }

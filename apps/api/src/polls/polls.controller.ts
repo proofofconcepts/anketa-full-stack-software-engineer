@@ -40,7 +40,7 @@ export class PollsController {
       page: parseInt(page),
       limit: Math.min(parseInt(limit), 50),
       category,
-      requesterId: user?.id ?? null,
+      requesterId: user?.id ?? '',
     });
   }
 
@@ -72,7 +72,7 @@ export class PollsController {
   @UseGuards(OptionalJwtAuthGuard)
   @ApiOperation({ summary: 'Get a poll by ID' })
   findOne(@Param('id') id: string, @CurrentUser() user: User | null) {
-    return this.pollsService.findOne(id, user?.id ?? null);
+    return this.pollsService.findOne(id, user?.id ?? '');
   }
 
   @Delete(':id')

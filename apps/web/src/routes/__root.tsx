@@ -1,6 +1,6 @@
-import { AppShell, Burger, Group, NavLink, Text } from '@mantine/core'
+import { AppShell, Burger, Button, Group, NavLink, Text } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
-import { Outlet, createRootRoute, Link } from '@tanstack/react-router'
+import { Link, Outlet, createRootRoute } from '@tanstack/react-router'
 import { useAuthStore } from '@/stores/auth.store'
 
 export const Route = createRootRoute({
@@ -21,8 +21,8 @@ function RootLayout() {
         <Group h="100%" px="md" justify="space-between">
           <Group>
             <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-            <Link to="/">
-              <Text fw={700} size="lg">
+            <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Text fw={700} size="lg" component="span">
                 Anketa
               </Text>
             </Link>
@@ -31,16 +31,16 @@ function RootLayout() {
             {isAuthenticated ? (
               <>
                 <Text size="sm">@{user?.username}</Text>
-                <NavLink label="Logout" onClick={logout} />
+                <Button variant="subtle" size="sm" onClick={logout}>
+                  Logout
+                </Button>
               </>
             ) : (
               <>
-                <Link to="/login">
-                  <NavLink label="Login" />
-                </Link>
-                <Link to="/register">
-                  <NavLink label="Register" />
-                </Link>
+                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                <NavLink component={Link as any} to="/login" label="Login" />
+                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                <NavLink component={Link as any} to="/register" label="Register" />
               </>
             )}
           </Group>
@@ -48,20 +48,21 @@ function RootLayout() {
       </AppShell.Header>
 
       <AppShell.Navbar p="md">
-        <Link to="/">
-          <NavLink label="Trending" />
-        </Link>
+        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+        <NavLink component={Link as any} to="/" label="Trending" />
         {isAuthenticated && (
           <>
-            <Link to="/following">
-              <NavLink label="Following" />
-            </Link>
-            <Link to="/polls/create">
-              <NavLink label="Create Poll" />
-            </Link>
-            <Link to="/profile/$username" params={{ username: user?.username ?? '' }}>
-              <NavLink label="My Profile" />
-            </Link>
+            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+            <NavLink component={Link as any} to="/following" label="Following" />
+            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+            <NavLink component={Link as any} to="/polls/create" label="Create Poll" />
+            <NavLink
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              component={Link as any}
+              to="/profile/$username"
+              params={{ username: user?.username ?? '' }}
+              label="My Profile"
+            />
           </>
         )}
       </AppShell.Navbar>

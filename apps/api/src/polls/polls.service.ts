@@ -11,7 +11,7 @@ interface ListPollsOptions {
   page: number;
   limit: number;
   category?: string;
-  requesterId: string | null;
+  requesterId: string;
 }
 
 @Injectable()
@@ -49,7 +49,7 @@ export class PollsService {
   }
 
   async findFollowing({ page, limit, requesterId }: ListPollsOptions) {
-    if (!requesterId) return this.toListDto([], 0, page, limit, null);
+    if (!requesterId) return this.toListDto([], 0, page, limit, requesterId);
     const following = await this.prisma.follow.findMany({
       where: { followerId: requesterId },
       select: { followingId: true },
@@ -70,7 +70,7 @@ export class PollsService {
     return this.toListDto(polls, total, page, limit, requesterId);
   }
 
-  async findOne(id: string, requesterId: string | null) {
+  async findOne(id: string, requesterId: string) {
     const poll = await this.prisma.poll.findUnique({
       where: { id },
       include: this.pollInclude(requesterId),
@@ -86,7 +86,7 @@ export class PollsService {
     await this.prisma.poll.delete({ where: { id } });
   }
 
-  async findByUsername(username: string, page: number, limit: number, requesterId: string | null) {
+  async findByUsername(username: string, page: number, limit: number, requesterId: string) {
     const user = await this.prisma.user.findUnique({ where: { username } });
     if (!user) throw new NotFoundException('User not found');
 
@@ -104,27 +104,23 @@ export class PollsService {
     return this.toListDto(polls, total, page, limit, requesterId);
   }
 
-  private pollInclude(requesterId: string | null) {
+  private pollInclude(requesterId: string) {
     return {
       author: {
         include: {
           _count: { select: { followers: true, following: true, polls: true } },
-          followers: requesterId != null
-            ? { where: { followerId: requesterId }, select: { followerId: true } }
-            : { take: 0, select: { followerId: true } },
+          followers: { where: { followerId: requesterId }, select: { followerId: true } },
         },
       },
       options: {
         include: { _count: { select: { votes: true } } },
       },
-      votes: requesterId != null
-        ? { where: { userId: requesterId }, select: { optionId: true } }
-        : { take: 0, select: { optionId: true } },
+      votes: { where: { userId: requesterId }, select: { optionId: true } },
       _count: { select: { votes: true, comments: true } },
     };
   }
 
-  private toDto(poll: any, requesterId: string | null) {
+  private toDto(poll: any, requesterId: string) {
     const totalVotes = poll._count.votes;
     const userVote = poll.votes[0] ?? null;
 
@@ -164,7 +160,7 @@ export class PollsService {
     };
   }
 
-  private toListDto(polls: any[], total: number, page: number, limit: number, requesterId: string | null) {
+  private toListDto(polls: any[], total: number, page: number, limit: number, requesterId: string) {
     return {
       data: polls.map((p) => this.toDto(p, requesterId)),
       meta: {
