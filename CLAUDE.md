@@ -1,54 +1,91 @@
 # CLAUDE.md
 
 ## Goal
+
 This repository is a study project to prepare for a technical interview for a Full Stack Software Engineer role.
 
 The product theme is a social vote platform inspired by Anketa: users create polls, vote, and view transparent results.
 
-## Product Scope
-This project should represent a full-stack system with three connected areas:
+## Job Description Reference
 
-1. Backend API
-- Build the core business logic and data integrity rules.
-- Expose secure REST APIs for auth, polls, and voting.
-- Use NestJS, Prisma, PostgreSQL, JWT auth, Swagger/OpenAPI, Docker, Docker Compose.
-- Include structured terminal logs for observability.
-- Use spec-driven development and ADR documents for major decisions.
+This repository uses the following Full Stack Software Engineer role as the primary implementation reference.
 
-2. Web
-- Web client consumes the backend API contract.
-- Focus on clarity, responsiveness, and reliable API integration.
-- Keep the web layer aligned with backend contracts and validation rules.
+About the role:
 
-3. Mobile
-- Mobile client (Flutter target) consumes the same backend API contract.
-- Prioritize stable integration, auth handling, network-state handling, and performance basics.
+- Work on a social media voting platform with a modern full-stack toolchain.
+- Contribute across backend, frontend, and mobile while maintaining high code quality standards.
 
-## Interview Study Intent
-This repo should showcase interview-ready engineering practices taken from the job description:
-- Clean, maintainable, testable code.
-- Strong TypeScript and NestJS fundamentals.
-- Solid Prisma schema design and relational modeling.
-- API documentation quality (Swagger/OpenAPI).
-- Testing discipline (unit, integration, contract, and e2e where relevant).
-- Collaboration habits: clear PR scope, code review readiness, and technical documentation.
-- Strong software principles: DRY, SOLID, and pragmatic clean architecture.
+Key responsibilities:
 
-## Job Description Reference (Summary)
-Reference role: Full Stack Software Engineer (social media voting platform).
+- Design, develop, and maintain scalable applications using Node.js, React, and Flutter.
+- Write clean, maintainable, and well-tested code that follows established development standards.
+- Collaborate through code reviews and technical discussions.
+- Optimize application performance across the full stack.
+- Work with complex Prisma-backed data models and database schemas.
+- Contribute to API design and Swagger documentation.
+- Implement comprehensive testing strategies with Jest.
+- Build cross-platform mobile applications with Flutter.
+- Implement robust state management with the Bloc pattern.
+- Create smooth and performant user interfaces.
 
-Primary expectations captured for this repo:
-- Build scalable web applications using Node.js + React and cross-platform mobile using Flutter.
-- Maintain high code quality and testing discipline (unit/integration with Jest).
-- Demonstrate strong backend architecture with NestJS + Prisma + Swagger.
-- Show frontend proficiency with modern React patterns and performance awareness.
-- Show mobile-awareness for Flutter, Bloc, API integration, and platform constraints.
-- Work with strict development standards, clean architecture principles, and collaborative code reviews.
-- Adapt across backend, frontend, and mobile while preserving maintainability.
+Required technical skills:
 
-This repository uses those expectations as interview study criteria for implementation and documentation quality.
+Backend:
+
+- Strong proficiency in Node.js and TypeScript.
+- Extensive experience with NestJS.
+- Hands-on experience with Prisma ORM and complex database schemas.
+- Solid understanding of REST API design and Swagger documentation.
+- Proven experience writing unit and integration tests with Jest.
+
+Frontend:
+
+- Strong React knowledge and modern React patterns.
+- Deep understanding of JavaScript and TypeScript fundamentals.
+- Experience with performance optimization techniques such as code splitting, memoization, and lazy loading.
+- Strong grasp of responsive design and modern CSS practices.
+
+Mobile development:
+
+- Strong Flutter and Dart proficiency.
+- Experience with the Bloc pattern for state management.
+- Solid understanding of GoRouter for navigation.
+- Hands-on experience with Firebase services such as Auth, Firestore, Cloud Messaging, and Analytics.
+- Working knowledge of Android and iOS platform constraints, guidelines, and release processes.
+
+General engineering expectations:
+
+- Demonstrated experience conducting thorough code reviews.
+- Commitment to strict development standards and best practices.
+- Strong understanding of software engineering principles and design patterns.
+- Strong understanding of mobile performance optimization.
+- Strong grasp of Clean Architecture and its use in Flutter.
+- Experience with REST API integration and network-state handling.
+- Proven ability to integrate third-party SDKs and services.
+- Commitment to testable code and comprehensive testing strategies.
+
+Nice-to-have skills:
+
+- Experience with Mantine, Vite, TanStack Router, Zustand, and Tailwind CSS.
+- Flexibility to work across the full stack as needed.
+- Native Android or iOS development exposure.
+- CI/CD knowledge for mobile applications.
+- Experience with mobile analytics, crash reporting, security, and monetization concerns.
+
+Candidate profile:
+
+- Takes pride in code quality and maintainability.
+- Values collaborative development through effective PR reviews.
+- Understands the importance of testing and documentation.
+- Can adapt between frontend and backend work based on project needs.
+- Stays current with best practices and performance techniques.
+- Uses modern development tools, including AI-assisted workflows, while keeping a strong software engineering foundation.
+
+This repository should use that role description as the benchmark for implementation quality, documentation quality, testing discipline, and architectural decision-making.
 
 ## Working Rules
-- Mandatory requirements for every feature/change:
+
+Mandatory requirements for every feature or change:
+
 1. Always use spec-driven development.
 2. Always use ADRs for architecture-impacting decisions.
