@@ -7,7 +7,11 @@ import {
   useCreatePollStore,
 } from '../store/create-poll.store';
 
-export function CreatePollForm() {
+interface CreatePollFormProps {
+  onSuccess?: () => void;
+}
+
+export function CreatePollForm({ onSuccess }: CreatePollFormProps) {
   const { token } = useAuthStore();
   const {
     isCreating,
@@ -23,7 +27,8 @@ export function CreatePollForm() {
 
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
-    await submitCreatePoll(token);
+    const ok = await submitCreatePoll(token);
+    if (ok) onSuccess?.();
   }
 
   return (
