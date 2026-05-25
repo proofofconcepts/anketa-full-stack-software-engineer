@@ -1,3 +1,5 @@
+import '@mantine/core/styles.css';
+import { MantineProvider } from '@mantine/core';
 import { Link, Outlet } from '@tanstack/react-router';
 import { useAuthStore } from '../store/auth.store';
 import { usePollsStore } from '../store/polls.store';
@@ -7,7 +9,8 @@ export function RootLayout() {
   const { error, notice } = usePollsStore();
 
   return (
-    <main className="mx-auto max-w-4xl px-4 pt-8 pb-16">
+    <MantineProvider>
+      <main className="mx-auto max-w-4xl px-4 pt-8 pb-16">
       <header className="mb-6 flex items-start justify-between gap-4">
         <div>
           <p className="m-0 text-xs font-bold tracking-widest uppercase text-[#042f2e]">Anketa Web</p>
@@ -57,5 +60,6 @@ export function RootLayout() {
 
       <Outlet />
     </main>
+  </MantineProvider>
   );
 }
