@@ -1,6 +1,7 @@
 import '@mantine/core/styles.css';
 import { MantineProvider } from '@mantine/core';
 import { Link, Outlet } from '@tanstack/react-router';
+import { Suspense } from 'react';
 import { useAuthStore } from '../store/auth.store';
 import { usePollsStore } from '../store/polls.store';
 
@@ -58,7 +59,9 @@ export function RootLayout() {
         <p className="my-3 px-4 py-3 rounded-xl bg-cyan-50 text-cyan-700">{notice}</p>
       ) : null}
 
-      <Outlet />
+      <Suspense fallback={<p className="text-center py-8 text-slate-400">Loading...</p>}>
+        <Outlet />
+      </Suspense>
     </main>
   </MantineProvider>
   );

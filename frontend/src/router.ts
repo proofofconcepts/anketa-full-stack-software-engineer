@@ -1,7 +1,14 @@
 import { createRootRoute, createRoute, createRouter } from '@tanstack/react-router';
+import { lazy } from 'react';
 import { RootLayout } from './routes/__root';
-import { FeedPage } from './routes/feed';
-import { CreatePollPage } from './routes/polls.new';
+
+const FeedPage = lazy(() =>
+  import('./routes/feed').then((m) => ({ default: m.FeedPage })),
+);
+
+const CreatePollPage = lazy(() =>
+  import('./routes/polls.new').then((m) => ({ default: m.CreatePollPage })),
+);
 
 const rootRoute = createRootRoute({ component: RootLayout });
 

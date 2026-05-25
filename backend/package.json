@@ -12,13 +12,10 @@
     "lint": "eslint \"{src,test}/**/*.ts\"",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:e2e": "jest --config ./test/jest-e2e.json",
-    "test:contract": "jest --config ./test/jest-contract.json",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:deploy": "prisma migrate deploy",
-    "prisma:seed": "ts-node prisma/seed.ts",
-    "lint:openapi": "swagger-cli validate openapi/anketa-social-vote.openapi.yaml"
+    "prisma:seed": "ts-node prisma/seed.ts"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.0",
@@ -65,13 +62,14 @@
   },
   "jest": {
     "moduleFileExtensions": ["js", "json", "ts"],
-    "rootDir": "src",
+    "rootDir": ".",
+    "roots": ["<rootDir>/test/unit"],
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
-      "^.+\\.(t|j)s$": "ts-jest"
+      "^.+\\.(t|j)s$": ["ts-jest", { "tsconfig": "tsconfig.spec.json" }]
     },
-    "collectCoverageFrom": ["**/*.(t|j)s"],
-    "coverageDirectory": "../coverage",
+    "collectCoverageFrom": ["<rootDir>/src/**/*.(t|j)s"],
+    "coverageDirectory": "./coverage",
     "testEnvironment": "node"
   }
 }

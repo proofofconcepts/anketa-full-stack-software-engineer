@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { useLogger } from '@mantine/hooks';
 import type { Poll } from '../types/poll';
 
@@ -7,7 +8,7 @@ interface PollCardProps {
   onVote: (pollId: string, optionId: string) => void;
 }
 
-export function PollCard({ poll, isVoting, onVote }: PollCardProps) {
+export const PollCard = memo(function PollCard({ poll, isVoting, onVote }: PollCardProps) {
   useLogger('PollCard', [{ pollId: poll.id, isVoting }]);
   return (
     <article className="bg-white border border-slate-200 rounded-2xl p-4">
@@ -31,4 +32,4 @@ export function PollCard({ poll, isVoting, onVote }: PollCardProps) {
       </div>
     </article>
   );
-}
+});
