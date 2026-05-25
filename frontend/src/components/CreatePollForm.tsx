@@ -1,3 +1,4 @@
+import { useLogger } from '@mantine/hooks';
 import { useAuthStore } from '../store/auth.store';
 import {
   CREATE_POLL_OPTIONS_MAX,
@@ -12,6 +13,7 @@ interface CreatePollFormProps {
 }
 
 export function CreatePollForm({ onSuccess }: CreatePollFormProps) {
+  useLogger('CreatePollForm', [{ onSuccess }]);
   const { token } = useAuthStore();
   const {
     isCreating,

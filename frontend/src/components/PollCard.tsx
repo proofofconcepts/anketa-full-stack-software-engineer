@@ -1,3 +1,4 @@
+import { useLogger } from '@mantine/hooks';
 import type { Poll } from '../types/poll';
 
 interface PollCardProps {
@@ -7,6 +8,7 @@ interface PollCardProps {
 }
 
 export function PollCard({ poll, isVoting, onVote }: PollCardProps) {
+  useLogger('PollCard', [{ pollId: poll.id, isVoting }]);
   return (
     <article className="bg-white border border-slate-200 rounded-2xl p-4">
       <header className="flex justify-between items-baseline gap-4 mb-3">
