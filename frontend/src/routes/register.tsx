@@ -1,12 +1,13 @@
 import { Alert, Anchor, Button, Paper, PasswordInput, Stack, Text, TextInput, Title } from '@mantine/core';
 import { Link, useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
-import { login } from '../api/client';
+import { register } from '../api/client';
 import { useAuthStore } from '../store/auth.store';
 
-export function LoginPage() {
+export function RegisterPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [displayName, setDisplayName] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -18,11 +19,11 @@ export function LoginPage() {
     setError(null);
     setIsLoading(true);
     try {
-      const { accessToken, refreshToken } = await login(email, password);
+      const { accessToken, refreshToken } = await register(email, password, displayName);
       setTokens(accessToken, refreshToken);
       await navigate({ to: '/' });
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Login failed');
+      setError(err instanceof Error ? err.message : 'Registration failed');
     } finally {
       setIsLoading(false);
     }
@@ -33,8 +34,8 @@ export function LoginPage() {
       <Paper shadow="md" p="xl" radius="xl" className="w-full max-w-sm">
         <Stack gap="md">
           <div>
-            <Title order={2} className="text-[#042f2e]">Sign in</Title>
-            <Text size="sm" c="dimmed" mt={4}>Enter your credentials to continue</Text>
+            <Title order={2} className="text-[#042f2e]">Create account</Title>
+            <Text size="sm" c="dimmed" mt={4}>Join Anketa and start voting</Text>
           </div>
 
           {error ? (
@@ -43,6 +44,15 @@ export function LoginPage() {
 
           <form onSubmit={(e) => void handleSubmit(e)}>
             <Stack gap="sm">
+              <TextInput
+                label="Display name"
+                placeholder="Your name"
+                value={displayName}
+                onChange={(e) => setDisplayName(e.currentTarget.value)}
+                required
+                minLength={2}
+                autoComplete="name"
+              />
               <TextInput
                 type="email"
                 label="Email"
@@ -54,11 +64,12 @@ export function LoginPage() {
               />
               <PasswordInput
                 label="Password"
-                placeholder="Your password"
+                placeholder="At least 8 characters"
                 value={password}
                 onChange={(e) => setPassword(e.currentTarget.value)}
                 required
-                autoComplete="current-password"
+                minLength={8}
+                autoComplete="new-password"
               />
               <Button
                 type="submit"
@@ -67,14 +78,15 @@ export function LoginPage() {
                 mt="xs"
                 style={{ backgroundColor: '#0ea5a4' }}
               >
-                Sign in
+                Create account
               </Button>
             </Stack>
           </form>
+
           <Text size="sm" ta="center" c="dimmed">
-            Don't have an account?{' '}
-            <Anchor component={Link} to="/register" size="sm">
-              Create account
+            Already have an account?{' '}
+            <Anchor component={Link} to="/login" size="sm">
+              Sign in
             </Anchor>
           </Text>
         </Stack>

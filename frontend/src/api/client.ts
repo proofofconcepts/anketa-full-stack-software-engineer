@@ -56,3 +56,14 @@ export function login(email: string, password: string): Promise<AuthResponse> {
     body: JSON.stringify({ email, password }),
   });
 }
+
+export function register(
+  email: string,
+  password: string,
+  displayName: string,
+): Promise<AuthResponse> {
+  return request<AuthResponse>('/auth/register', {
+    method: 'POST',
+    body: JSON.stringify({ email, password, displayName }),
+  });
+}

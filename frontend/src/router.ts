@@ -15,6 +15,10 @@ const LoginPage = lazy(() =>
   import('./routes/login').then((m) => ({ default: m.LoginPage })),
 );
 
+const RegisterPage = lazy(() =>
+  import('./routes/register').then((m) => ({ default: m.RegisterPage })),
+);
+
 const rootRoute = createRootRoute({ component: RootLayout });
 
 const indexRoute = createRoute({
@@ -44,7 +48,16 @@ const loginRoute = createRoute({
   component: LoginPage,
 });
 
-const routeTree = rootRoute.addChildren([indexRoute, createPollRoute, loginRoute]);
+const registerRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/register',
+  beforeLoad: () => {
+    if (useAuthStore.getState().accessToken) throw redirect({ to: '/' });
+  },
+  component: RegisterPage,
+});
+
+const routeTree = rootRoute.addChildren([indexRoute, createPollRoute, loginRoute, registerRoute]);
 
 export const router = createRouter({ routeTree });
 
