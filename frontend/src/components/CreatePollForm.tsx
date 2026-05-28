@@ -14,7 +14,7 @@ interface CreatePollFormProps {
 
 export function CreatePollForm({ onSuccess }: CreatePollFormProps) {
   useLogger('CreatePollForm', [{ onSuccess }]);
-  const { token } = useAuthStore();
+  const { accessToken } = useAuthStore();
   const {
     isCreating,
     draftQuestion,
@@ -29,7 +29,7 @@ export function CreatePollForm({ onSuccess }: CreatePollFormProps) {
 
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
-    const ok = await submitCreatePoll(token);
+    const ok = await submitCreatePoll(accessToken);
     if (ok) onSuccess?.();
   }
 

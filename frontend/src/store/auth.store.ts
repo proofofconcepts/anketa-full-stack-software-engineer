@@ -2,17 +2,21 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 interface AuthState {
-  token: string;
-  setToken: (token: string) => void;
-  clearToken: () => void;
+  accessToken: string;
+  refreshToken: string;
+  setTokens: (accessToken: string, refreshToken: string) => void;
+  logout: () => void;
 }
+
+export const selectIsAuthenticated = (s: AuthState) => s.accessToken.length > 0;
 
 export const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({
-      token: '',
-      setToken: (token) => set({ token }),
-      clearToken: () => set({ token: '' }),
+      accessToken: '',
+      refreshToken: '',
+      setTokens: (accessToken, refreshToken) => set({ accessToken, refreshToken }),
+      logout: () => set({ accessToken: '', refreshToken: '' }),
     }),
     { name: 'anketa-auth' },
   ),

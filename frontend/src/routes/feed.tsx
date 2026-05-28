@@ -4,15 +4,11 @@ import { useAuthStore } from '../store/auth.store';
 import { usePollsStore } from '../store/polls.store';
 
 export function FeedPage() {
-  const { token } = useAuthStore();
+  const { accessToken } = useAuthStore();
   const { polls, isLoading, isVoting, loadPolls, castVote } = usePollsStore();
 
   async function onVote(pollId: string, optionId: string) {
-    if (!token.trim()) {
-      usePollsStore.setState({ notice: 'Add an access token before voting.' });
-      return;
-    }
-    await castVote(pollId, optionId, token.trim());
+    await castVote(pollId, optionId, accessToken);
   }
 
   useEffect(() => {

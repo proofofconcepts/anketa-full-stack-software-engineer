@@ -1,5 +1,11 @@
 import type { CreatePollPayload, CreateVotePayload, Poll } from '../types/poll';
 
+export interface AuthResponse {
+  accessToken: string;
+  refreshToken: string;
+  tokenType: 'Bearer';
+}
+
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/v1';
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
@@ -41,5 +47,12 @@ export function createPoll(payload: CreatePollPayload, accessToken: string) {
       Authorization: `Bearer ${accessToken}`,
     },
     body: JSON.stringify(payload),
+  });
+}
+
+export function login(email: string, password: string): Promise<AuthResponse> {
+  return request<AuthResponse>('/auth/login', {
+    method: 'POST',
+    body: JSON.stringify({ email, password }),
   });
 }
