@@ -15,28 +15,19 @@ export function FeedPage() {
     void loadPolls();
   }, [loadPolls]);
 
+  if (isLoading && polls.length === 0) {
+    return <p className="text-center py-12 text-slate-400">Loading polls…</p>;
+  }
+
   return (
-    <>
-      <section className="my-4">
-        <button
-          type="button"
-          onClick={() => void loadPolls()}
-          disabled={isLoading}
-          className="border-0 rounded-full bg-[#0ea5a4] text-white px-4 py-2.5 cursor-pointer font-semibold disabled:opacity-60 disabled:cursor-not-allowed"
-        >
-          {isLoading ? 'Loading...' : 'Refresh Polls'}
-        </button>
-      </section>
+    <section className="grid gap-4">
+      {polls.map((poll) => (
+        <PollCard key={poll.id} poll={poll} isVoting={isVoting} onVote={onVote} />
+      ))}
 
-      <section className="grid gap-4">
-        {polls.map((poll) => (
-          <PollCard key={poll.id} poll={poll} isVoting={isVoting} onVote={onVote} />
-        ))}
-
-        {!isLoading && polls.length === 0 ? (
-          <p className="text-slate-600 text-center">No polls available yet.</p>
-        ) : null}
-      </section>
-    </>
+      {polls.length === 0 ? (
+        <p className="text-slate-600 text-center">No polls available yet.</p>
+      ) : null}
+    </section>
   );
 }
