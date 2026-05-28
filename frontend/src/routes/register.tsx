@@ -30,7 +30,7 @@ export function RegisterPage() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-svh py-8 sm:min-h-[60vh] sm:py-0">
+    <div className="flex items-center justify-center py-12 sm:min-h-[60vh] sm:py-0">
       <Paper shadow="md" p="xl" radius="xl" className="w-full max-w-sm">
         <Stack gap="md">
           <div>
