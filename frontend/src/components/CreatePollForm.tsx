@@ -70,7 +70,7 @@ export function CreatePollForm({ onSuccess }: CreatePollFormProps) {
                     type="button"
                     onClick={() => removeDraftOption(idx)}
                     aria-label={`Remove option ${idx + 1}`}
-                    className="text-slate-400 hover:text-rose-500 text-lg leading-none px-1"
+                    className="text-slate-400 hover:text-rose-500 text-lg leading-none flex items-center justify-center min-w-[44px] min-h-[44px]"
                   >
                     ×
                   </button>

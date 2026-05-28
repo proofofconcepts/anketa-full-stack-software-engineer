@@ -19,7 +19,7 @@ export function RootLayout() {
   return (
     <MantineProvider>
       <main className="mx-auto max-w-4xl px-4 pt-8 pb-16">
-        <header className="mb-6 flex items-start justify-between gap-4">
+        <header className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
           <div>
             <p className="m-0 text-xs font-bold tracking-widest uppercase text-[#042f2e]">Anketa Web</p>
             <h1 className="mt-1 mb-2 text-[clamp(1.8rem,2.5vw,2.8rem)] font-bold leading-tight">
@@ -27,7 +27,7 @@ export function RootLayout() {
             </h1>
           </div>
           {isAuthenticated ? (
-            <nav className="flex gap-2 mt-2 shrink-0">
+            <nav className="flex flex-wrap gap-2 sm:mt-2 sm:shrink-0">
               <Link
                 to="/"
                 className="rounded-full px-4 py-2 text-sm font-semibold border border-slate-200 text-slate-700 no-underline hover:bg-slate-50"
